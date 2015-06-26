@@ -52,6 +52,7 @@ public class ProducerMain {
 
             int start = replicationController.getStatus().getReplicas();
 
+            start = (start > 0) ? (start * PRODUCER_COUNT) : 0;
             ExecutorService executorService = Executors.newFixedThreadPool(PRODUCER_COUNT);
 
             for (int i =0; i < PRODUCER_COUNT; i++) {

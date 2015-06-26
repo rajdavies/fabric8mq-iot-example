@@ -22,9 +22,6 @@ import org.apache.camel.component.dataset.SimpleDataSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-
 public class ConsumerMain {
     private static final Logger LOG = LoggerFactory.getLogger(ConsumerMain.class);
     public static void main(String args[]) {
@@ -44,7 +41,8 @@ public class ConsumerMain {
             ReplicationController replicationController = kubernetes.getReplicationController(replicationId);
 
 
-            final int start = replicationController.getStatus().getReplicas();
+            int num = replicationController.getStatus().getReplicas();
+            final int start = num > 0 ? (num * CONSUMER_COUNT) : 0;
 
 
 
